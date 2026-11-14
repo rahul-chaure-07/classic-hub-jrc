@@ -1,7 +1,7 @@
 package app.simple.classichub;
 
 import android.Manifest;
-import android.app.Activity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.content.ContentUris;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -23,7 +23,7 @@ import java.util.*;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 
-public class MainActivity extends Activity implements TextToSpeech.OnInitListener {
+public class MainActivity extends AppCompatActivity implements TextToSpeech.OnInitListener {
 
     EditText input;
     TextView chatBox, emotionView;
@@ -101,7 +101,7 @@ public class MainActivity extends Activity implements TextToSpeech.OnInitListene
         modeBtn.setOnClickListener(v -> {
             forceOffline = !forceOffline;
             modeBtn.setText(forceOffline ? "Mode: 📁 OFFLINE" : "Mode: 🌐 ONLINE");
-            Toast.makeText(this, forceOffline ? "Offline Mode ON" : "Online Mode ON",  Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, forceOffline ? "Offline Mode ON" : "Online Mode  ON",   Toast.LENGTH_SHORT).show();
         });
 
         micBtn.setOnTouchListener((v, event) -> {
@@ -193,7 +193,7 @@ public class MainActivity extends Activity implements TextToSpeech.OnInitListene
 
     // FIX 3: Naya Offline Song - DATA hataya, ab _ID se chalega
     void playOfflineSong(String name){
-         try{
+           try{
             String clean = name.toLowerCase().replace("gana","").replace("bajao","").replace("song","").replace("play","").replace("music","").trim();
             Uri uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
             String[] proj = {MediaStore.Audio.Media._ID, MediaStore.Audio.Media.DISPLAY_NAME};
@@ -269,7 +269,7 @@ public class MainActivity extends Activity implements TextToSpeech.OnInitListene
     boolean isCreatorQuestion(String l){
         return l.contains("kisne banaya") || l.contains("who made you") || l.contains("who created you") || l.contains("creator") || l.contains("developer");
     }
-    boolean  isPunished(){
+     boolean   isPunished(){
         long endTime = memory.getLong("punish_end_time", 0);
         if(System.currentTimeMillis() < endTime){
             if(isOwner()) return false;
@@ -348,7 +348,7 @@ public class MainActivity extends Activity implements TextToSpeech.OnInitListene
         if(l.contains("naam change")) return "Nahi" + namePart + ", mera naam sirf Janu hi rahega, ye " + CREATOR_NAME + " ne fix kiya hai 😊";
 
         int angerCount = memory.getInt("anger_count", 0);
-        int abuseAfterCry = memory.getInt("abuse_after_cry",  0);
+        int abuseAfterCry =  memory.getInt("abuse_after_cry",   0);
         boolean lastWasCry =  memory.getBoolean("last_was_cry", false);
         boolean isAngryMsg = l.contains("gussa") || l.contains("daant") || l.contains("bakwas") || l.contains("hat") || l.contains("chup") || l.contains("pagal") || l.contains("kut");
 
@@ -393,5 +393,5 @@ public class MainActivity extends Activity implements TextToSpeech.OnInitListene
     }
     @Override protected void onDestroy() {
         super.onDestroy(); if(tts != null) tts.shutdown(); if(mp != null) mp.release();
-     }
+       }
 }
